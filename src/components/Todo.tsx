@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { X, Plus, Trash2, Check } from 'lucide-react';
+import { supabase } from '../lib/supabaseClient';
 
 type TodoItem = {
   id: number;
@@ -7,30 +8,82 @@ type TodoItem = {
   completed: boolean;
 };
 
-export const Todo: React.FC = () => {
+export default function Todo() {
   const [todos, setTodos] = useState<TodoItem[]>([]);
   const [newTodoText, setNewTodoText] = useState('');
+  const [user, setUser] = useState(null);
 
-  const addTodo = () => {
-    if (newTodoText.trim()) {
-      const newTodo: TodoItem = {
-        id: Date.now(),
-        text: newTodoText.trim(),
-        completed: false
-      };
-      setTodos([...todos, newTodo]);
-      setNewTodoText('');
+  useEffect(() => {
+    fetchTodos();
+    // Subscribe to auth changes
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {
+      if (session?.user) {
+        setUser(session.user);
+        fetchTodos();
+      } else {
+        setUser(null);
+        setTodos([]);
+      }
+    });
+  }, []);
+
+  const fetchTodos = async () => {
+    const { data: { user } } = await supabase.auth.getUser();
+    if (user) {
+      const { data, error } = await supabase
+        .from('todos')
+        .select('*')
+        .eq('user_id', user.id)
+        .order('created_at', { ascending: true });
+      
+      if (data) setTodos(data);
+      if (error) console.error('Error fetching todos:', error);
     }
   };
 
-  const toggleTodo = (id: number) => {
-    setTodos(todos.map(todo => 
-      todo.id === id ? { ...todo, completed: !todo.completed } : todo
-    ));
+  const addTodo = async (e) => {
+    e.preventDefault();
+    if (!newTodoText.trim()) return;
+
+    const { data: { user } } = await supabase.auth.getUser();
+    if (user) {
+      const { data, error } = await supabase
+        .from('todos')
+        .insert([
+          { text: newTodoText, user_id: user.id }
+        ])
+        .select();
+
+      if (error) console.error('Error adding todo:', error);
+      else {
+        setTodos([...todos, data[0]]);
+        setNewTodoText('');
+      }
+    }
   };
 
-  const removeTodo = (id: number) => {
-    setTodos(todos.filter(todo => todo.id !== id));
+  const toggleTodo = async (id: number, completed: boolean) => {
+    const { error } = await supabase
+      .from('todos')
+      .update({ completed: !completed })
+      .eq('id', id);
+
+    if (!error) {
+      setTodos(todos.map(todo => 
+        todo.id === id ? { ...todo, completed: !completed } : todo
+      ));
+    }
+  };
+
+  const removeTodo = async (id: number) => {
+    const { error } = await supabase
+      .from('todos')
+      .delete()
+      .eq('id', id);
+
+    if (!error) {
+      setTodos(todos.filter(todo => todo.id !== id));
+    }
   };
 
   return (
@@ -44,7 +97,7 @@ export const Todo: React.FC = () => {
           type="text" 
           value={newTodoText}
           onChange={(e) => setNewTodoText(e.target.value)}
-          onKeyDown={(e) => e.key === 'Enter' && addTodo()}
+          onKeyDown={(e) => e.key === 'Enter' && addTodo(e)}
           placeholder="Add a new task"
           className="flex-grow mr-2 px-2 py-1 rounded-md bg-white/20 border border-white/30 text-sm"
         />
@@ -63,7 +116,7 @@ export const Todo: React.FC = () => {
             className="flex items-center bg-white/20 p-2 rounded-md"
           >
             <button 
-              onClick={() => toggleTodo(todo.id)}
+              onClick={() => toggleTodo(todo.id, todo.completed)}
               className={`mr-2 p-1 rounded-full ${
                 todo.completed 
                   ? 'bg-green-500/50' 
@@ -90,4 +143,4 @@ export const Todo: React.FC = () => {
       </div>
     </div>
   );
-}; 
+} 
