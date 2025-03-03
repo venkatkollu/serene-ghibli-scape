@@ -26,7 +26,7 @@ const RelaxationRoom = () => {
   
   // Full-screen state
   const [isFullScreen, setIsFullScreen] = useState(false);
-
+  
   // Toggle handlers
   const toggleMusic = () => setShowMusic(!showMusic);
   const toggleMiniGames = () => setShowMiniGames(!showMiniGames);
@@ -75,7 +75,7 @@ const RelaxationRoom = () => {
       document.removeEventListener('fullscreenchange', handleFullScreenChange);
     };
   }, []);
-
+  
   return (
     <div className="relative h-screen w-screen overflow-hidden">
       {/* Environment Background Video */}
@@ -124,9 +124,9 @@ const RelaxationRoom = () => {
         </button>
 
         {/* Draggable Music Player */}
-        <AnimatePresence>
-          {showMusic && (
-            <motion.div
+          <AnimatePresence>
+            {showMusic && (
+              <motion.div
               initial={{ opacity: 0, x: '-100%' }}
               animate={{ opacity: 1, x: 0 }}
               exit={{ opacity: 0, x: '-100%' }}
@@ -137,12 +137,12 @@ const RelaxationRoom = () => {
               }}
               style={{ position: 'absolute', top: '1rem', left: '1rem' }}
               className="z-50 w-full max-w-md"
-            >
-              <MusicPlayer />
-            </motion.div>
-          )}
-        </AnimatePresence>
-
+              >
+                <MusicPlayer />
+              </motion.div>
+            )}
+          </AnimatePresence>
+          
         {/* Draggable Pomodoro */}
         <AnimatePresence>
           {showPomodoro && (
@@ -154,10 +154,10 @@ const RelaxationRoom = () => {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: 20 }}
               transition={{ duration: 0.3 }}
-              className="absolute left-1/2 -translate-x-1/2 z-50 cursor-move w-full max-w-md"
+              className="absolute left-1/2 -translate-x-1/2 z-50 cursor-move w-full"
               style={{ 
                 maxWidth: '20rem',
-                bottom: 'calc(100% - 5rem)'
+                bottom: '8rem'
               }}
             >
               <Pomodoro />
@@ -191,62 +191,62 @@ const RelaxationRoom = () => {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4 h-full">
             {/* Left Side Panel - Settings */}
             <div className="order-2 md:order-1">
-              <AnimatePresence>
-                {showSettings && (
-                  <motion.div
-                    initial={{ opacity: 0, scale: 0.9 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    exit={{ opacity: 0, scale: 0.9 }}
-                    transition={{ duration: 0.3 }}
-                    className="h-full"
-                  >
-                    <SettingsMenu onClose={() => setShowSettings(false)} className="h-full" />
-                  </motion.div>
-                )}
-                
+            <AnimatePresence>
+              {showSettings && (
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.9 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0, scale: 0.9 }}
+                  transition={{ duration: 0.3 }}
+                  className="h-full"
+                >
+                  <SettingsMenu onClose={() => setShowSettings(false)} className="h-full" />
+                </motion.div>
+              )}
+              
                 {!showSettings && (
-                  <motion.div
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    exit={{ opacity: 0 }}
-                    transition={{ duration: 0.3 }}
+                <motion.div
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  transition={{ duration: 0.3 }}
                     className="rounded-xl h-full min-h-[200px] md:min-h-[300px]"
-                  ></motion.div>
-                )}
-              </AnimatePresence>
-            </div>
-            
-            {/* Center Interactive Area */}
+                ></motion.div>
+              )}
+            </AnimatePresence>
+          </div>
+          
+          {/* Center Interactive Area */}
             <div className="order-1 md:order-2">
-              <div className="grid grid-cols-1 gap-4">
+            <div className="grid grid-cols-1 gap-4">
                 {/* Removed InteractiveFireplace */}
-              </div>
             </div>
-            
+          </div>
+          
             {/* Right Side Panel - Calendar */}
             <div className="order-3">
-              <AnimatePresence>
+            <AnimatePresence>
                 {showCalendar && (
-                  <motion.div
+                <motion.div
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     exit={{ opacity: 0 }}
-                    transition={{ duration: 0.3 }}
+                  transition={{ duration: 0.3 }}
                     className="h-full min-h-[200px] md:min-h-[300px]"
-                  >
+                >
                     <Calendar />
-                  </motion.div>
+                </motion.div>
                 )}
                 {!showCalendar && (
-                  <motion.div
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    exit={{ opacity: 0 }}
-                    transition={{ duration: 0.3 }}
+                <motion.div
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  transition={{ duration: 0.3 }}
                     className="rounded-xl h-full min-h-[200px] md:min-h-[300px]"
-                  ></motion.div>
-                )}
-              </AnimatePresence>
+                ></motion.div>
+              )}
+            </AnimatePresence>
             </div>
           </div>
         </div>
