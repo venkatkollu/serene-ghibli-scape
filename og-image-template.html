@@ -14,7 +14,7 @@
       flex-direction: column;
       justify-content: center;
       align-items: center;
-      background: linear-gradient(135deg, #6a85b6 0%, #bac8e0 100%);
+      background: linear-gradient(135deg, #5d8cb3 0%, #a4ccf4 100%);
       font-family: 'Arial', sans-serif;
       color: white;
       overflow: hidden;
@@ -27,21 +27,27 @@
       left: 0;
       width: 100%;
       height: 100%;
-      background: rgba(0, 0, 0, 0.2);
+      background: rgba(0, 0, 0, 0.15);
       z-index: 1;
     }
     
     .content {
       position: relative;
-      z-index: 2;
+      z-index: 5;
       text-align: center;
       padding: 2rem;
+      background: rgba(0, 0, 0, 0.3);
+      border-radius: 20px;
+      backdrop-filter: blur(5px);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
     }
     
     h1 {
-      font-size: 72px;
+      font-size: 80px;
       margin: 0 0 20px 0;
       text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+      font-weight: 700;
+      letter-spacing: 1px;
     }
     
     p {
@@ -51,59 +57,107 @@
       text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
     }
     
-    .trees {
+    .hills {
       position: absolute;
       bottom: 0;
       width: 100%;
-      height: 200px;
-      background: #1a472a;
-      z-index: 0;
+      height: 250px;
+      background: #2d5d3b;
+      border-radius: 50% 50% 0 0 / 100% 100% 0 0;
+      z-index: 2;
     }
     
-    .tree {
+    .hills:before {
+      content: '';
+      position: absolute;
+      bottom: 50px;
+      left: -100px;
+      width: 120%;
+      height: 300px;
+      background: #1a472a;
+      border-radius: 50% 50% 0 0 / 100% 100% 0 0;
+      z-index: -1;
+    }
+    
+    .totoro {
       position: absolute;
       bottom: 180px;
-      width: 0;
-      height: 0;
-      border-left: 50px solid transparent;
-      border-right: 50px solid transparent;
-      border-bottom: 200px solid #2d5d3b;
-      z-index: 0;
+      right: 150px;
+      width: 200px;
+      height: 250px;
+      z-index: 3;
     }
     
-    .tree:nth-child(1) {
-      left: 10%;
+    .totoro-body {
+      position: absolute;
+      width: 180px;
+      height: 220px;
+      background: #5c6b7a;
+      border-radius: 90px;
+      bottom: 0;
+      left: 10px;
     }
     
-    .tree:nth-child(2) {
-      left: 25%;
-      bottom: 190px;
-      border-bottom-color: #1e3e28;
+    .totoro-belly {
+      position: absolute;
+      width: 120px;
+      height: 140px;
+      background: #d9d9d9;
+      border-radius: 60px;
+      bottom: 20px;
+      left: 30px;
     }
     
-    .tree:nth-child(3) {
-      left: 40%;
+    .totoro-ear {
+      position: absolute;
+      width: 40px;
+      height: 60px;
+      background: #5c6b7a;
+      border-radius: 20px;
     }
     
-    .tree:nth-child(4) {
-      left: 60%;
-      bottom: 200px;
-      border-bottom-color: #1e3e28;
+    .totoro-ear.left {
+      top: -30px;
+      left: 40px;
+      transform: rotate(-10deg);
     }
     
-    .tree:nth-child(5) {
-      left: 75%;
+    .totoro-ear.right {
+      top: -30px;
+      right: 40px;
+      transform: rotate(10deg);
     }
     
-    .tree:nth-child(6) {
-      left: 90%;
-      bottom: 190px;
-      border-bottom-color: #1e3e28;
+    .totoro-eye {
+      position: absolute;
+      width: 25px;
+      height: 25px;
+      background: white;
+      border-radius: 50%;
+      top: 60px;
+    }
+    
+    .totoro-eye.left {
+      left: 55px;
+    }
+    
+    .totoro-eye.right {
+      right: 55px;
+    }
+    
+    .totoro-pupil {
+      position: absolute;
+      width: 12px;
+      height: 12px;
+      background: black;
+      border-radius: 50%;
+      top: 6px;
+      left: 6px;
     }
     
     .clouds {
       position: absolute;
-      top: 100px;
+      top: 0;
       width: 100%;
       z-index: 0;
     }
@@ -139,6 +193,7 @@
     
     .cloud:nth-child(1) {
       left: 10%;
+      top: 100px;
       transform: scale(0.8);
     }
     
@@ -152,6 +207,46 @@
       top: 150px;
       transform: scale(0.9);
     }
+    
+    .tree {
+      position: absolute;
+      bottom: 180px;
+      z-index: 3;
+    }
+    
+    .tree-trunk {
+      position: absolute;
+      width: 30px;
+      height: 120px;
+      background: #5e3a1c;
+      bottom: 0;
+      left: 35px;
+    }
+    
+    .tree-top {
+      position: absolute;
+      width: 100px;
+      height: 160px;
+      background: #3a6e3d;
+      border-radius: 50%;
+      bottom: 80px;
+      left: 0;
+    }
+    
+    .tree:nth-child(1) {
+      left: 10%;
+      transform: scale(0.7);
+    }
+    
+    .tree:nth-child(2) {
+      left: 25%;
+      transform: scale(1.2);
+    }
+    
+    .tree:nth-child(3) {
+      left: 40%;
+      transform: scale(0.9);
+    }
   </style>
 </head>
 <body>
@@ -163,13 +258,34 @@
     <div class="cloud"></div>
   </div>
   
-  <div class="trees">
-    <div class="tree"></div>
-    <div class="tree"></div>
-    <div class="tree"></div>
-    <div class="tree"></div>
-    <div class="tree"></div>
-    <div class="tree"></div>
+  <div class="hills"></div>
+  
+  <div class="tree">
+    <div class="tree-trunk"></div>
+    <div class="tree-top"></div>
+  </div>
+  
+  <div class="tree">
+    <div class="tree-trunk"></div>
+    <div class="tree-top"></div>
+  </div>
+  
+  <div class="tree">
+    <div class="tree-trunk"></div>
+    <div class="tree-top"></div>
+  </div>
+  
+  <div class="totoro">
+    <div class="totoro-body"></div>
+    <div class="totoro-belly"></div>
+    <div class="totoro-ear left"></div>
+    <div class="totoro-ear right"></div>
+    <div class="totoro-eye left">
+      <div class="totoro-pupil"></div>
+    </div>
+    <div class="totoro-eye right">
+      <div class="totoro-pupil"></div>
+    </div>
   </div>
   
   <div class="content">
