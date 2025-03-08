@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>OG Image Template</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      width: 1200px;
+      height: 630px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      background: linear-gradient(135deg, #6a85b6 0%, #bac8e0 100%);
+      font-family: 'Arial', sans-serif;
+      color: white;
+      overflow: hidden;
+      position: relative;
+    }
+    
+    .overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.2);
+      z-index: 1;
+    }
+    
+    .content {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+      padding: 2rem;
+    }
+    
+    h1 {
+      font-size: 72px;
+      margin: 0 0 20px 0;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    }
+    
+    p {
+      font-size: 32px;
+      max-width: 800px;
+      margin: 0;
+      text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+    }
+    
+    .trees {
+      position: absolute;
+      bottom: 0;
+      width: 100%;
+      height: 200px;
+      background: #1a472a;
+      z-index: 0;
+    }
+    
+    .tree {
+      position: absolute;
+      bottom: 180px;
+      width: 0;
+      height: 0;
+      border-left: 50px solid transparent;
+      border-right: 50px solid transparent;
+      border-bottom: 200px solid #2d5d3b;
+      z-index: 0;
+    }
+    
+    .tree:nth-child(1) {
+      left: 10%;
+    }
+    
+    .tree:nth-child(2) {
+      left: 25%;
+      bottom: 190px;
+      border-bottom-color: #1e3e28;
+    }
+    
+    .tree:nth-child(3) {
+      left: 40%;
+    }
+    
+    .tree:nth-child(4) {
+      left: 60%;
+      bottom: 200px;
+      border-bottom-color: #1e3e28;
+    }
+    
+    .tree:nth-child(5) {
+      left: 75%;
+    }
+    
+    .tree:nth-child(6) {
+      left: 90%;
+      bottom: 190px;
+      border-bottom-color: #1e3e28;
+    }
+    
+    .clouds {
+      position: absolute;
+      top: 100px;
+      width: 100%;
+      z-index: 0;
+    }
+    
+    .cloud {
+      position: absolute;
+      width: 200px;
+      height: 60px;
+      background: rgba(255, 255, 255, 0.8);
+      border-radius: 50px;
+    }
+    
+    .cloud:before, .cloud:after {
+      content: '';
+      position: absolute;
+      background: rgba(255, 255, 255, 0.8);
+      border-radius: 50%;
+    }
+    
+    .cloud:before {
+      width: 100px;
+      height: 100px;
+      top: -50px;
+      left: 25px;
+    }
+    
+    .cloud:after {
+      width: 80px;
+      height: 80px;
+      top: -35px;
+      right: 25px;
+    }
+    
+    .cloud:nth-child(1) {
+      left: 10%;
+      transform: scale(0.8);
+    }
+    
+    .cloud:nth-child(2) {
+      left: 50%;
+      top: 50px;
+    }
+    
+    .cloud:nth-child(3) {
+      left: 80%;
+      top: 150px;
+      transform: scale(0.9);
+    }
+  </style>
+</head>
+<body>
+  <div class="overlay"></div>
+  
+  <div class="clouds">
+    <div class="cloud"></div>
+    <div class="cloud"></div>
+    <div class="cloud"></div>
+  </div>
+  
+  <div class="trees">
+    <div class="tree"></div>
+    <div class="tree"></div>
+    <div class="tree"></div>
+    <div class="tree"></div>
+    <div class="tree"></div>
+    <div class="tree"></div>
+  </div>
+  
+  <div class="content">
+    <h1>Serene Ghibli Scape</h1>
+    <p>A relaxing digital space inspired by Studio Ghibli</p>
+  </div>
+</body>
+</html> 
